@@ -5,9 +5,9 @@ namespace SimpleCardGameKata
 {
     public class DeckOfCards
     {
-        public List<int> Cards = new List<int>();
+        public IList<int> Cards = new List<int>();
 
-        public DeckOfCards(List<int> initialDeck)
+        public DeckOfCards(IEnumerable<int> initialDeck)
         {
             foreach (var card in initialDeck)
             {

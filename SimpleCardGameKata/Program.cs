@@ -27,7 +27,7 @@ namespace SimpleCardGameKata
             Console.ReadLine();
         }
 
-        private static object CardsAsString(List<int> deckOfCards)
+        private static object CardsAsString(IEnumerable<int> deckOfCards)
         {
             return String.Join(",", deckOfCards.Select(x => x.ToString()));
         }
