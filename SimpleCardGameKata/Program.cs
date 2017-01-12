@@ -29,13 +29,30 @@ namespace SimpleCardGameKata
             Console.WriteLine("Here are the cards you have been dealt: " + CardsAsString(playerCards));
             Console.WriteLine("");
 
-            Game game = new Game(allCards);
-            int kittyCard = game.PlayKittyCard();
-            Console.WriteLine("First kitty card played: " + kittyCard);
-            Console.WriteLine("");
+            Console.WriteLine("Enter 'k' to play a kitty card.");
+            Console.WriteLine("Enter 'exit' to exit.");
 
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+            string userInput = Console.ReadLine();
+            Game game = new Game(allCards);
+            while (userInput.ToUpper() != "EXIT")
+            {
+                try
+                {
+                    int kittyCard = game.PlayKittyCard();
+                    Console.WriteLine("Next kitty card: " + kittyCard);
+                    Console.WriteLine("");
+
+                    Console.WriteLine("Enter 'k' to play a kitty card.");
+                    Console.WriteLine("Enter 'exit' to exit.");
+                }
+                catch (EmptyHandException)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("No cards left in kitty.");
+                    Console.WriteLine("Enter 'exit' to exit.");
+                }
+                userInput = Console.ReadLine();
+            }
         }
 
         private static object CardsAsString(IEnumerable<int> deckOfCards)
