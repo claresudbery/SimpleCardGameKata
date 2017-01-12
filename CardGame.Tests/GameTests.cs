@@ -76,8 +76,10 @@ namespace CardGame.Tests
             Assert.Throws<EmptyHandException>(() => game.PlayKittyCard());
         }
 
-        [Test]
-        public void Given1PlayerGame_AllBidsWin()
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(10)]
+        public void Given1PlayerGame_AllBidsWin(int bid)
         {
             // Arrange
             const int numHands = 2;
@@ -88,10 +90,38 @@ namespace CardGame.Tests
 
             // Act & Assert
             int kittyCard = game.PlayKittyCard();
-            Winner winner = game.MakeBids(0);
+            Winner winner = game.MakeBids(new List<int>{bid});
 
             // Assert
             Assert.AreEqual(1, winner.PlayerNumber);
+            Assert.AreEqual(kittyCard, winner.Score);
+        }
+
+        [TestCase(2, 1)]
+        [TestCase(2, 2)]
+        [TestCase(5, 1)]
+        [TestCase(5, 3)]
+        public void GivenMultiPlayerGame_HighestBidWins(int numPlayers, int winningPlayer)
+        {
+            // Arrange
+            const int numHands = 2;
+            const int numCards = numHands * 1;
+            DeckOfCards deckOfCards = new DeckOfCards(Enumerable.Range(1, numCards));
+            List<List<int>> dealtCards = deckOfCards.Deal(numHands).ToList();
+            Game game = new Game(dealtCards);
+            var bids = new List<int>();
+            for (int count = 1; count <= numPlayers; count++)
+            {
+                bids.Add(1);
+            }
+            bids[winningPlayer - 1] = 10;
+
+            // Act & Assert
+            int kittyCard = game.PlayKittyCard();
+            Winner winner = game.MakeBids(bids);
+
+            // Assert
+            Assert.AreEqual(winningPlayer, winner.PlayerNumber);
             Assert.AreEqual(kittyCard, winner.Score);
         }
     }

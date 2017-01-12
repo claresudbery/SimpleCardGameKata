@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleCardGameKata
 {
@@ -38,11 +39,12 @@ namespace SimpleCardGameKata
             return _lastPlayedKittyCard;
         }
 
-        public Winner MakeBids(int bid)
+        public Winner MakeBids(List<int> bids)
         {
+            int maxBid = bids.Max();
             return new Winner
             {
-                PlayerNumber = 1,
+                PlayerNumber = bids.IndexOf(maxBid) + 1,
                 Score = _lastPlayedKittyCard
             };
         }
