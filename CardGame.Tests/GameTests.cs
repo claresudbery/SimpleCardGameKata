@@ -75,5 +75,24 @@ namespace CardGame.Tests
             game.PlayKittyCard();
             Assert.Throws<EmptyHandException>(() => game.PlayKittyCard());
         }
+
+        [Test]
+        public void Given1PlayerGame_AllBidsWin()
+        {
+            // Arrange
+            const int numHands = 2;
+            const int numCards = numHands * 1;
+            DeckOfCards deckOfCards = new DeckOfCards(Enumerable.Range(1, numCards));
+            List<List<int>> dealtCards = deckOfCards.Deal(numHands).ToList();
+            Game game = new Game(dealtCards);
+
+            // Act & Assert
+            int kittyCard = game.PlayKittyCard();
+            Winner winner = game.MakeBids(0);
+
+            // Assert
+            Assert.AreEqual(1, winner.PlayerNumber);
+            Assert.AreEqual(kittyCard, winner.Score);
+        }
     }
 }

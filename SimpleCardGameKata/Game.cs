@@ -7,6 +7,7 @@ namespace SimpleCardGameKata
     {
         private readonly List<List<int>> _dealtCards = new List<List<int>>();
         private readonly List<int> _kittyCards;
+        private int _lastPlayedKittyCard;
 
         public Game(List<List<int>> dealtCards)
         {
@@ -24,11 +25,9 @@ namespace SimpleCardGameKata
 
         public int PlayKittyCard()
         {
-            int cardPlayed = 0;
-
             try
             {
-                cardPlayed = _kittyCards[_kittyCards.Count - 1];
+                _lastPlayedKittyCard = _kittyCards[_kittyCards.Count - 1];
                 _kittyCards.RemoveAt(_kittyCards.Count - 1);
             }
             catch (ArgumentOutOfRangeException)
@@ -36,7 +35,16 @@ namespace SimpleCardGameKata
                 throw new EmptyHandException();
             }
 
-            return cardPlayed;
+            return _lastPlayedKittyCard;
+        }
+
+        public Winner MakeBids(int bid)
+        {
+            return new Winner
+            {
+                PlayerNumber = 1,
+                Score = _lastPlayedKittyCard
+            };
         }
     }
 }
