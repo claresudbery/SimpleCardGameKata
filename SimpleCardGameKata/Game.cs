@@ -24,6 +24,11 @@ namespace SimpleCardGameKata
             _kittyCards = _dealtCards[0];
         }
 
+        public int NumPlayers
+        {
+            get { return _dealtCards.Count - 1; }
+        }
+
         public int PlayKittyCard()
         {
             try
