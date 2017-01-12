@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using SimpleCardGameKata;
 
 namespace CardGame.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class DeckOfCardTests
     {
-        [TestMethod]
+        [Test]
         public void ShuffleChangesTheOrderOfTheCards()
         {
             // Arrange
@@ -22,7 +22,7 @@ namespace CardGame.Tests
             Assert.IsFalse(cardsBeforeShuffle.TrueForAll(x => x == deckOfCards.Cards[cardsBeforeShuffle.IndexOf(x)]));
         }
 
-        [TestMethod]
+        [Test]
         public void CardsAreDealtInAlternateOrder()
         {
             // Arrange

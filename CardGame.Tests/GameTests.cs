@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using SimpleCardGameKata;
 
 namespace CardGame.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class GameTests
     {
-        [TestMethod]
+        [Test]
         public void FirstKittyCardPlayedIsLastCardDealtToKitty()
         {
             // Arrange
